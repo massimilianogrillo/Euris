@@ -1,0 +1,67 @@
+﻿@model EURISTest.Models.CatalogModels.CatalogDetails
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>CatalogDetails</legend>
+    <div class="display-field">
+        <table>
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(model => model.Description)</b>
+                </td>
+                <td>
+                    <b>@Html.DisplayNameFor(model => model.Code)</b>
+                </td>
+                <td>
+                    <label><b>Product Association</b></label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Code)
+                </td>
+                @if (Model.Products.Count > 0)
+                {
+                    <td>
+                        <table border="1" style="font-size:11px;">
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Products)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.Code
+                                        </td>
+                                        <td>
+                                            @item.Description
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </td>
+                }
+                else
+                {
+                    <td><b>Nothing</b></td>
+                }
+            </tr>
+        </table>
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

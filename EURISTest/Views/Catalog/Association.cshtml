@@ -1,0 +1,50 @@
+﻿@model EURISTest.Models.CatalogModels.AssociationProducts
+@{
+    ViewBag.Title = "Association";
+}
+
+<h2>Product Association</h2>
+@using (Html.BeginForm("DoAssociation", "Catalog"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.IdCatalog)
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Description)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Description, new { disabled = "disabled", @readonly = "readonly" })
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Code)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Code, new { disabled = "disabled", @readonly = "readonly" })
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Products) (Press shift to select multiple items)
+    </div>
+
+    <div class="editor-field">
+        @Html.ListBoxFor(model => model.IdProducts, Model.Products)
+        @Html.ValidationMessageFor(model => model.IdProducts)
+    </div>
+    <p>
+        <input type="submit" value="Save" />
+    </p>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    $(document).ready(function () {
+        var IsDeleted = @Html.Raw(Json.Encode(Model.IsError));
+        if(IsDeleted) {
+            alert("Associate at least one product");
+        }
+    });
+</script>
+}
